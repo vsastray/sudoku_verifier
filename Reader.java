@@ -1,7 +1,7 @@
 /*
  * Name: vsastray
  * Date: 2017-09-11
- * File: verifier.java
+ * File: Reader.java
  *
  * Read in user's input.
  */
@@ -17,9 +17,6 @@ public class Reader {
 	private int size;
 	private int[][] sudoku;
 
-	/**
-	 * Constructor.
-	 */
 	public Reader(int length) {
 		this.size = length;
 		this.sudoku = new int[this.size][this.size];
@@ -28,7 +25,7 @@ public class Reader {
 	/**
 	 * Read in Sudoku problem.
 	 */
-	private void readByRow() {
+	public void readByRow() {
 		Scanner sc = new Scanner(System.in);
 		for(int i = 0; i < this.size; i++) {
 			System.out.printf("Row %d:\n", i + 1);
@@ -44,6 +41,12 @@ public class Reader {
 		System.out.println("Please enter your Sudoku below. Enter 0 for empty blocks.");
 		Reader r = new Reader(SIDE_LENGTH);
 		r.readByRow();
+		// verify
+		Verifier v = new Verifier(r.sudoku);
+		boolean isvalid = v.checkIfValid();
+		if(isvalid) {
+			System.out.println("The Sudoku puzzle is valid. Need solution? (yes/no): ");
+		}
 	}
 
 }
